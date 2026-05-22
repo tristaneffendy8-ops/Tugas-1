@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformasi Geometri Sederhana</title>
+<style>
+  body {
+    text-align: center;
+    font-family: Arial, sans-serif;
+    background: #f4f6f9;
+  }
+  h2 { margin-top: 20px; }
+  canvas {
+    border: 1px solid #333;
+    background: #fff;
+    margin-top: 10px;
+  }
+  button {
+    margin: 5px;
+    padding: 8px 12px;
+    border: none;
+    background: #4b7bec;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  button:hover { background: #3867d6; }
+</style>
+</head>
+
+<body>
+  <h2>🧮 Program Transformasi Geometri (2D)</h2>
+  <p>Klik tombol untuk melihat perubahan bentuk persegi.</p>
+  <canvas id="kanvas" width="400" height="400"></canvas><br>
+
+  <button onclick="translasi()">Translasi (Geser)</button>
+  <button onclick="rotasi()">Rotasi (Putar)</button>
+  <button onclick="skala()">Skala (Perbesar)</button>
+  <button onclick="reset()">Reset</button>
+
+  <script>
+    const canvas = document.getElementById("kanvas");
+    const ctx = canvas.getContext("2d");
+
+    // Posisi awal
+    let x = 200, y = 200;
+    let ukuran = 50;
+    let sudut = 0;
+
+    // Fungsi menggambar persegi
+    function gambar() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height); // hapus gambar lama
+      ctx.save();
+      ctx.translate(x, y);   // pindah titik tengah
+      ctx.rotate(sudut);     // putar
+      ctx.scale(ukuran / 50, ukuran / 50); // ubah ukuran
+      ctx.fillStyle = "#4b7bec";
+      ctx.fillRect(-25, -25, 50, 50);  // gambar persegi (pusat di tengah)
+      ctx.restore();
+    }
+
+    // Fungsi transformasi
+    function translasi() {
+      x += -30; // geser ke kanan
+      gambar();
+    }
+    function rotasi() {
+      sudut += Math.PI / 10; // rotasi 22.5 derajat
+      gambar();
+    }
+    function skala() {
+      ukuran += 20; // perbesar
+      gambar();
+    }
+    function reset() {
+      x = 200; y = 200;
+      ukuran = 100;
+      sudut = 0;
+      gambar();
+    }
+
+    // Tampilkan pertama kali
+    gambar();
+  </script>
+</body>
+</html>
